@@ -23,7 +23,11 @@ class CheckMergeArray {
                 result[k++]=arr1[i++];
         }
 
-        // Replace this placeholder return statement with your code
+        //Optimal appraoch
+        /*
+        * i=arr1.length-1,j=0
+        * Compare if arr1[i]>arr2[j] then swap and i--,j++ else break;
+        */
         return result;
     }
 }
