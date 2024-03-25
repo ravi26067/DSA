@@ -18,4 +18,3 @@ Greedy algorithms work by recursively constructing a set of pieces from the smal
 Looking at the animation above, it is trying to find the path with the maximum sum of node values. We can see that the greedy algorithm just grabs the solution it thinks is best—without looking at its consequences. It might work in some cases, especially those where the optimal solution of the subset is the solution for the superset as well.
 
 The advantage of using a greedy algorithm is that solutions to smaller instances of the problem can be straightforward and easy to understand. However, the disadvantage is that it is entirely possible that the most optimal short-term solutions may lead to the worst possible long-term outcome!!
-```
