@@ -6,10 +6,20 @@ public class DFS {
     public static String bfs(Graph g) {
         String result = "";
         Queue<Integer> queue = new LinkedList<>();
-        int visited[] = new int[g.getVertices()];
-
-        System.out.println("Vertices count: "+ g.getVertices());
-        // Write - Your - Code
+        boolean visited[] = new boolean[g.getVertices()];
+        visited[0] = true;
+        queue.add(0);
+        while (!queue.isEmpty()){
+            int curr = queue.poll();
+            result += Integer.toString(curr);
+            LinkedList<Integer> temp = g.getAdjacencyList()[curr];
+            for (Integer num:temp){
+                if(!visited[num]){
+                    queue.add(num);
+                    visited[num]=true;
+                }
+            }
+        }
 
         return result;
     }
@@ -22,6 +32,7 @@ public class DFS {
         g.addEdge(1, 3);
         g.addEdge(1, 4);
         String res = bfs(g);
+        System.out.println("Result:"+res);
     }
 
 }
