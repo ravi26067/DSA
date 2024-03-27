@@ -16,8 +16,16 @@ class Graph{
 		adjacencyList[source].add(destination);
 	}
 
+	public int getVertices() {
+		return vertices;
+	}
+
+	public LinkedList<Integer>[] getAdjacencyList() {
+		return adjacencyList;
+	}
+
 	public static void main(String args[]){
-		Graph g = new Graph(4);
+		Graph g = new Graph(5);
 		g.addEdge(0, 1);
   		g.addEdge(0, 2);
   		g.addEdge(1, 3);
