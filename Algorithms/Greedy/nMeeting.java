@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 // Definition of Meeting class implementing Comparable interface
 class Meeting implements Comparable<Meeting>{
     int start;
