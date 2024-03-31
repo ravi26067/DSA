@@ -1,56 +1,57 @@
-import java.util.Arrays;
+import java.util.*;
 
-// Definition of Meeting class implementing Comparable interface
-class Meeting implements Comparable<Meeting>{
-    int start;
-    int end;
+class Solution {
     
-    // Constructor to initialize start and end times of a meeting
-    Meeting (int start, int end){
-        this.start = start;
-        this.end = end;
-    }
-    
-    // Overriding compareTo method to compare meetings based on end times
-    @Override
-    public int compareTo(Meeting other){
-        return this.end - other.end;
-    }
-}
-
-// Solution class containing method to find maximum number of meetings
-class Solution 
-{
-    // Function to find the maximum number of meetings that can
-    // be performed in a meeting room.
-    public static int maxMeetings(int start[], int end[], int n)
-    {
-        // Creating an array of Meeting objects to store meeting details
-        Meeting[] meetings = new Meeting[n];
-        // Populating the array with Meeting objects using provided start and end times
-        for (int i = 0; i < n; i++) {
-            meetings[i] = new Meeting(start[i], end[i]);
+    // Inner class representing a meeting
+    class Meeting implements Comparable<Meeting> {
+        int start;  // Start time of the meeting
+        int end;    // End time of the meeting
+        int pos;    // Position of the meeting
+        
+        // Constructor to initialize meeting details
+        public Meeting(int start, int end ,int pos){
+            this.start = start;
+            this.end = end;
+            this.pos = pos;
         }
         
-        // Sorting meetings array based on end times using Arrays.sort method
-        Arrays.sort(meetings);
+        // Implementation of compareTo method to compare meetings based on end times
+        @Override
+        public int compareTo(Meeting other){
+            if (this.end != other.end) // If the end times are different
+                return this.end - other.end; // Sort based on end time
+            else // If end times are the same
+                return this.start - other.start; // Sort based on start time
+        }
+    }
+    
+    // Method to find the maximum number of meetings
+    public static ArrayList<Integer> maxMeetings(int N, int[] S, int[] F) {
+        ArrayList<Integer> answer = new ArrayList(); // List to store the positions of selected meetings
+        Meeting[] meeting = new Meeting[N]; // Array to store Meeting objects
         
-        // Initializing count variable to keep track of the maximum number of meetings
-        int count = 1; // We can always accommodate the first meeting
-        int endTime = meetings[0].end; // Storing the end time of the first meeting
+        // Creating Meeting objects and populating the meetings array
+        for (int i = 0; i < N; i++) {
+            meeting[i] = new Meeting(S[i], F[i], i + 1);
+        }
+        
+        Arrays.sort(meeting); // Sorting the meetings array based on end times
+        
+        int endT = meeting[0].end; // Initializing endT with the end time of the first meeting
+        answer.add(meeting[0].pos); // Adding the position of the first meeting to the answer list
         
         // Iterating through the sorted meetings array starting from the second meeting
-        for (int i = 1; i < n; i++) {
-            // If the start time of the current meeting is greater than the end time
-            // of the previous meeting, we can accommodate this meeting, so increment count
-            // and update endTime to the end time of the current meeting
-            if (meetings[i].start > endTime) {
-                count++;
-                endTime = meetings[i].end;
+        for (int i = 1; i < N; i++) {
+            // If the start time of the current meeting is greater than or equal to endT,
+            // we can accommodate this meeting, so add its position to the answer list
+            // and update endT to the end time of the current meeting
+            if (meeting[i].start >= endT) {
+                answer.add(meeting[i].pos);
+                endT = meeting[i].end;
             }
         }
-        
-        // Returning the maximum number of meetings that can be accommodated
-        return count;
+        Collections.sort(answer);
+        return answer; // Return the list of selected meetings
     }
+    
 }
